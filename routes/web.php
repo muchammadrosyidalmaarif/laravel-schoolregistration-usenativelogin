@@ -23,7 +23,7 @@ Route::get('/', function()
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [App\Http\Controllers\AuthController::class, 'authenticate']);
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
-
+#test
 Route::get('/register', [App\Http\Controllers\RegisterController::class, 'index']);
 Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store']);
 
