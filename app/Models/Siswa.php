@@ -25,4 +25,9 @@ class Siswa extends Model
         return $this->belongsToMany(Mapel::class)->withPivot(['nilai']);
     }
     use HasFactory;
+
+    public function nama_lengkap()
+    {
+        return $this->nama_depan." ".$this->nama_belakang;
+    }
 }

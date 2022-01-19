@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SiswaExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Models\Mapel;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Support\Str;
+use PDF;
 
 class SiswaController extends Controller
 {
@@ -63,15 +67,14 @@ class SiswaController extends Controller
         return redirect('/siswa')->with('sukses', 'Data Berhasil Ditambahkan!');
     }
 
-    public function edit($id)
+    public function edit(Siswa $siswa)
     {
-        $siswa= Siswa::find($id);
         return view('siswa.edit',['siswa'=> $siswa]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Siswa $siswa)
     {
-        $siswa=Siswa::find($id);
+        
         $siswa->update($request->all());  
         if($request->hasFile('avatar'))
         {
@@ -86,12 +89,16 @@ class SiswaController extends Controller
     {
         $siswa=Siswa::find($id);
         $siswa->delete($siswa);
+        //user
+        $userid=$siswa->user_id;
+        $user=User::find($userid);
+        $user->delete($user);
         return redirect('/siswa')->with('sukses', 'Data Berhasil Dihapus!');
     }
 
-    public function detail($id)
+    public function detail(siswa $siswa)
     {
-        $siswa=Siswa::find($id);
+      
         $pelajaran=Mapel::all();
         return view('siswa.detailsiswa', 
         [
@@ -112,4 +119,17 @@ class SiswaController extends Controller
 
         return redirect('siswa/' .$idsiswa. '/detail')->with('sukses', 'Nilai Berhasil Ditambahkan!');
     }
+
+    public function export() 
+    {
+        return Excel::download(new SiswaExport, 'Siswa.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $siswa= Siswa::all();
+        $pdf = PDF::loadView('export.datasiswapdf',['siswa'=>$siswa]);
+        return $pdf->download('datasiswa.pdf');
+    }
+    
 }

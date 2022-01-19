@@ -8,12 +8,23 @@
 @endif
   
    <div class="row">
-       <div class="col-10">
+       <div class="col-3">
            <h1>Data Siswa</h1>
        </div>
 
+       <div class="col-3">
+        <a href="/siswa/export" type="button" class="btn btn-primary mb-3">
+          <i class="fas fa-download"></i> Download Laporan Excel
+        </a>
+       </div>
+      
+       <div class="col-3">
+        <a href="/siswa/exportpdf" type="button" class="btn btn-primary mb-3">
+          <i class="fas fa-download"></i> Download Laporan PDF
+        </a>
+       </div>
        <!--Modal Tambah Siswa-->
-       <div class="col-2">
+       <div class="col-3">
 
            <!-- Button trigger modal -->@if (auth()->user()->role=='Admin')
            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -54,7 +65,7 @@
             <td>
                 <a href="/siswa/{{ $siswa->id }}/detail" class="btn btn-warning mb-3"><i class="fas fa-info-circle"></i></a>
                 <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-primary mb-3"><i class="far fa-edit"></i></a>
-                <a href="/siswa/{{ $siswa->id }}/delete" class="btn btn-danger mb-3" onclick="return confirm('Yakin Ingin Menghapus Data Ini?')"><i class="fas fa-trash-alt"></i></a>
+                <a href="#" class="btn btn-danger mb-3 delete" siswa-nama_depan="{{ $siswa->nama_lengkap()}}" siswa-id="{{ $siswa->id }}"><i class="fas fa-trash-alt"></i></a>
             </td> 
             @endif
            
@@ -178,7 +189,28 @@
    </div>
    </div>
 </div>
+@section('footer')
+    <script>
+      $('.delete').click(function(){
+        var siswa_nama=$(this).attr('siswa-nama_depan');
+        var siswa_id=$(this).attr('siswa-id');
 
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover "+siswa_nama+ "'s data?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              window.location="/siswa/"+siswa_id+"/delete";
+              }
+             
+          });
+      });
+    </script>
+@endsection
 
 @endsection
     
