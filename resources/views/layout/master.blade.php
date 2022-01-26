@@ -34,7 +34,7 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet"
         />
-
+        <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
         @yield('header')
 
         <!-- Custom styles for this template-->
@@ -107,13 +107,10 @@
                 <li class="nav-item">
                     <a
                         class="nav-link collapsed"
-                        href="#"
-                        data-target="#collapseUtilities"
-                        aria-expanded="true"
-                        aria-controls="collapseUtilities"
+                        href="/mapel"
                     >
                         <i class="fas fa-fw fa-wrench"></i>
-                        <span>Utilities</span>
+                        <span>Data Mapel</span>
                     </a>
                 </li>
 
@@ -812,8 +809,10 @@
         <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
 
         <!-- Page level custom scripts -->
-        <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
-        <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+        <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+      
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @yield('footer')
       

@@ -12,6 +12,7 @@
            <h1>Data Siswa</h1>
        </div>
 
+       @if (auth()->user()->role=='Admin')
        <div class="col-3">
         <a href="/siswa/export" type="button" class="btn btn-primary mb-3">
           <i class="fas fa-download"></i> Download Laporan Excel
@@ -23,6 +24,8 @@
           <i class="fas fa-download"></i> Download Laporan PDF
         </a>
        </div>
+       @endif
+      
        <!--Modal Tambah Siswa-->
        <div class="col-3">
 
@@ -36,7 +39,7 @@
                
        </div>
 <div class="table-responsive">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" id="tabelSiswa">
         <thead>
         
             <tr class="table-dark">
@@ -190,6 +193,13 @@
    </div>
 </div>
 @section('footer')
+
+<script>
+  $(document).ready( function () {
+  $('#tabelSiswa').DataTable();
+} );
+</script>
+
     <script>
       $('.delete').click(function(){
         var siswa_nama=$(this).attr('siswa-nama_depan');

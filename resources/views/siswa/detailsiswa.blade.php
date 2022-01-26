@@ -61,7 +61,7 @@
                     <td>{{ $mapel->nama }}</td>
                     <td>{{ $mapel->semester }}</td>
                     <td><a href="#" class="nilai" data-type="text" data-pk="{{ $mapel->id }}" data-url="/api/siswa/{{ $siswa->id }}/editnilai" data-title="Enter Nilai ">{{ $mapel->pivot->nilai }}</a></td>  
-                    <td>{{ $mapel->guru->nama }}</td>
+                    <td>{{ $mapel->guru->nama_guru }}</td>
                 </tr>
               @endforeach
                 

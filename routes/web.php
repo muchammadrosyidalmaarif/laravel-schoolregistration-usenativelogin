@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function()
 {
-    return view('utama');
+    return view('register.utama');
 });
 
 
@@ -25,8 +25,7 @@ Route::post('/postlogin', [App\Http\Controllers\AuthController::class, 'authenti
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
 #test
 Route::get('/register', [App\Http\Controllers\RegisterController::class, 'index']);
-Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store']);
-Route::get('/registersiswa', [App\Http\Controllers\SiteController::class, 'index']);
+Route::post('/registersiswa', [App\Http\Controllers\RegisterController::class, 'create']);
 
 Route::group(['middleware' => ['auth','checkrole:Admin']],function(){
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
@@ -39,6 +38,8 @@ Route::group(['middleware' => ['auth','checkrole:Admin']],function(){
     Route::post('/siswa/{id}/addnilai', [App\Http\Controllers\SiswaController::class, 'addnilai']);
     Route::get('/siswa/export', [App\Http\Controllers\SiswaController::class, 'export']);
     Route::get('/siswa/exportpdf', [App\Http\Controllers\SiswaController::class, 'exportpdf'] );
+
+    Route::get('/mapel', [App\Http\Controllers\MapelController::class, 'index']);
 
 });
 

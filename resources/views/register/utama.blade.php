@@ -1,37 +1,5 @@
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-  <meta charset="utf-8">
-  <title>Educenter</title>
-
-  <!-- mobile responsive meta -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- ** Plugins Needed for the Project ** -->
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="{{ asset('plugins-1/bootstrap/bootstrap.min.css') }}">
-  <!-- slick slider -->
-  <link rel="stylesheet" href="{{ asset('plugins-1/slick/slick.css') }}">
-  <!-- themefy-icon -->
-  <link rel="stylesheet" href="{{ asset('plugins-1/themify-icons/themify-icons.css') }}">
-  <!-- animation css -->
-  <link rel="stylesheet" href="{{ asset('plugins-1/animate/animate.css') }}">
-  <!-- aos -->
-  <link rel="stylesheet" href="{{ asset('plugins-1/aos/aos.css') }}">
-  <!-- venobox popup -->
-  <link rel="stylesheet" href="{{ asset('plugins-1/venobox/venobox.css') }}">
-
-  <!-- Main Stylesheet -->
-  <link href="{{ asset('css-1/style.css') }}" rel="stylesheet">
-
-  <!--Favicon-->
-  <link rel="shortcut icon" href="{{ asset('images-1/favicon.png') }}" type="image/x-icon">
-  <link rel="icon" href="{{ asset('images-1/favicon.png') }}" type="image/x-icon">
-
-</head>
-
+@extends('layoutmaster.layout')
+@section('header')
 <body>
   <!-- preloader start -->
   <div class="preloader">
@@ -67,6 +35,11 @@
     </div>
   </div>
   <!-- navbar -->
+  @if (session('sukses'))
+<div class="alert alert-success" role="alert">
+   <i class="far fa-check-circle"></i> {{session('sukses')}}
+ </div>  
+@endif
   <div class="navigation w-100">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark p-0">
@@ -211,7 +184,7 @@
       </div>
 
       <div class="modal-body">
-          <form action="/siswa/create" method="POST" enctype="multipart/form-data">
+          <form action="/registersiswa" method="POST" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Nama Depan</label>
@@ -260,6 +233,19 @@
                   @enderror
                
                </div>
+
+
+               <div class="mb-3">
+                <label  class="form-label">Password</label>
+                <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
+             
+                @error('password')
+                 <div class="invalid-feedback">
+                   {{$message}}
+                 </div>
+                @enderror
+             
+             </div>
                 
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>   
@@ -321,11 +307,8 @@
       <div class="hero-slider-item">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Your bright future is our mission</h1>
-            <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor
-              incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
+            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Hey, I love you</h1>
+            <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">我爱你</p>
             <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".7">Apply now</a>
           </div>
         </div>
@@ -334,11 +317,8 @@
       <div class="hero-slider-item">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">Your bright future is our mission</h1>
-            <p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor
-              incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
+            <h1 class="text-white" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">Hey, I love you</h1>
+            <p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">I hope we can be together someday</p>
             <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".7">Apply now</a>
           </div>
         </div>
@@ -366,7 +346,7 @@
   <div class="container-fluid p-0">
     <div class="row no-gutters">
       <div class="col-xl-4 col-lg-5 align-self-end">
-        <img class="img-fluid w-100" src="images/banner/banner-feature.png" alt="banner-feature">
+        <img class="img-fluid w-100" src="{{ asset('images-1/banner/banner-feature.png') }}" alt="banner-feature">
       </div>
       <div class="col-xl-8 col-lg-7">
         <div class="row feature-blocks bg-gray justify-content-between">
@@ -456,7 +436,7 @@
   <!-- course item -->
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-2.jpg" alt="course thumb">
+      <img class="card-img-top rounded-0" src="{{ asset('images-1/courses/course-2.jpg') }}" alt="course thumb">
       <div class="card-body">
         <ul class="list-inline mb-2">
           <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
@@ -570,7 +550,7 @@
 <!-- /cta -->
 
 <!-- success story -->
-<section class="section bg-cover" data-background="images/backgrounds/success-story.jpg">
+<section class="section bg-cover" data-background="{{ asset('images-1/backgrounds/success-story.jpg') }}">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-sm-4 position-relative success-video">
@@ -798,125 +778,8 @@
 </section>
 <!-- /blog -->
 
-<!-- footer -->
-<footer>
-  <!-- newsletter -->
-  <div class="newsletter">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
-          <h3 class="text-white">Subscribe Now</h3>
-          <form action="#">
-            <div class="input-wrapper">
-              <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
-              <button type="submit" value="send" class="btn btn-primary">Join</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- footer content -->
-  <div class="footer bg-footer section border-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
-          <!-- logo -->
-          <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="images/logo.png" alt="logo"></a>
-          <ul class="list-unstyled">
-            <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
-            <li class="mb-2">+1 (2) 345 6789</li>
-            <li class="mb-2">+1 (2) 345 6789</li>
-            <li class="mb-2">contact@yourdomain.com</li>
-          </ul>
-        </div>
-        <!-- company -->
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
-          <h4 class="text-white mb-5">COMPANY</h4>
-          <ul class="list-unstyled">
-            <li class="mb-3"><a class="text-color" href="about.html">About Us</a></li>
-            <li class="mb-3"><a class="text-color" href="teacher.html">Our Teacher</a></li>
-            <li class="mb-3"><a class="text-color" href="contact.html">Contact</a></li>
-            <li class="mb-3"><a class="text-color" href="blog.html">Blog</a></li>
-          </ul>
-        </div>
-        <!-- links -->
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
-          <h4 class="text-white mb-5">LINKS</h4>
-          <ul class="list-unstyled">
-            <li class="mb-3"><a class="text-color" href="courses.html">Courses</a></li>
-            <li class="mb-3"><a class="text-color" href="event.html">Events</a></li>
-            <li class="mb-3"><a class="text-color" href="gallary.html">Gallary</a></li>
-            <li class="mb-3"><a class="text-color" href="faqs.html">FAQs</a></li>
-          </ul>
-        </div>
-        <!-- support -->
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
-          <h4 class="text-white mb-5">SUPPORT</h4>
-          <ul class="list-unstyled">
-            <li class="mb-3"><a class="text-color" href="#">Forums</a></li>
-            <li class="mb-3"><a class="text-color" href="#">Documentation</a></li>
-            <li class="mb-3"><a class="text-color" href="#">Language</a></li>
-            <li class="mb-3"><a class="text-color" href="#">Release Status</a></li>
-          </ul>
-        </div>
-        <!-- support -->
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
-          <h4 class="text-white mb-5">RECOMMEND</h4>
-          <ul class="list-unstyled">
-            <li class="mb-3"><a class="text-color" href="#">WordPress</a></li>
-            <li class="mb-3"><a class="text-color" href="#">LearnPress</a></li>
-            <li class="mb-3"><a class="text-color" href="#">WooCommerce</a></li>
-            <li class="mb-3"><a class="text-color" href="#">bbPress</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- copyright -->
-  <div class="copyright py-4 bg-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-7 text-sm-left text-center">
-          <p class="mb-0">Copyright
-            <script>
-              var CurrentYear = new Date().getFullYear()
-              document.write(CurrentYear)
-            </script> 
-            © themefisher</p>
-        </div>
-        <div class="col-sm-5 text-sm-right text-center">
-          <ul class="list-inline">
-            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i class="ti-facebook text-primary"></i></a></li>
-            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i class="ti-twitter-alt text-primary"></i></a></li>
-            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i class="ti-linkedin text-primary"></i></a></li>
-            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i class="ti-instagram text-primary"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-<!-- /footer -->
+@section('footer')
+    
+@endsection
 
-<!-- jQuery -->
-<script src="{{ asset('plugins-1/jQuery/jquery.min.js') }}"></script>
-<!-- Bootstrap JS -->
-<script src="{{ asset('plugins-1/bootstrap/bootstrap.min.js') }}"></script>
-<!-- slick slider -->
-<script src="{{ asset('plugins-1/slick/slick.min.js') }}"></script>
-<!-- aos -->
-<script src="{{ asset('plugins-1/aos/aos.js') }}"></script>
-<!-- venobox popup -->
-<script src="{{ asset('plugins-1/venobox/venobox.min.js') }}"></script>
-<!-- filter -->
-<script src="{{ asset('plugins-1/filterizr/jquery.filterizr.min.js') }}"></script>
-<!-- google map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
-<script src="{{ asset('plugins-1/google-map/gmap.js') }}"></script>
-
-<!-- Main Script -->
-<script src="{{ asset('js-1/script.js') }}"></script>
-
-</body>
-</html>
+@endsection
