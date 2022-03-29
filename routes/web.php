@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth','checkrole:Admin']],function(){
     Route::post('/siswa/{id}/addnilai', [App\Http\Controllers\SiswaController::class, 'addnilai']);
     Route::get('/siswa/export', [App\Http\Controllers\SiswaController::class, 'export']);
     Route::get('/siswa/exportpdf', [App\Http\Controllers\SiswaController::class, 'exportpdf'] );
+    Route::post('/siswa/import', [App\Http\Controllers\SiswaController::class, 'importexc'] );
 
     Route::get('/mapel', [App\Http\Controllers\MapelController::class, 'index']);
 

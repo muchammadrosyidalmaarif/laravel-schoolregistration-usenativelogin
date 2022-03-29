@@ -8,36 +8,46 @@
 @endif
   
    <div class="row">
-       <div class="col-3">
+       <div class="col">
            <h1>Data Siswa</h1>
        </div>
+   </div>
 
-       @if (auth()->user()->role=='Admin')
-       <div class="col-3">
-        <a href="/siswa/export" type="button" class="btn btn-primary mb-3">
-          <i class="fas fa-download"></i> Download Laporan Excel
-        </a>
-       </div>
-      
-       <div class="col-3">
-        <a href="/siswa/exportpdf" type="button" class="btn btn-primary mb-3">
-          <i class="fas fa-download"></i> Download Laporan PDF
-        </a>
-       </div>
-       @endif
-      
-       <!--Modal Tambah Siswa-->
-       <div class="col-3">
+   <div class="row">
+    @if (auth()->user()->role=='Admin')
+    <!--Triggered Modal Tambah Siswa-->
+    <div class="col-3">
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="fas fa-plus"></i> Tambah Siswa
+      </button>
+    </div>
 
-           <!-- Button trigger modal -->@if (auth()->user()->role=='Admin')
-           <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="fas fa-plus"></i> Tambah Siswa
-          </button>
-           @endif
-               
-               
-               
-       </div>
+    <!--Triggered Modal Import Pdf-->
+    <div class="col-3">
+     <a type="button" class="btn btn-primary sm-3 mb-3" data-bs-toggle="modal" data-bs-target="#importExcel">
+      <i class="fas fa-upload"></i> Upload File Excel
+     </a>
+    </div>
+
+   
+    <div class="col-3">
+     <a href="/siswa/exportpdf" type="button" class="btn btn-primary mb-3">
+       <i class="fas fa-download"></i> Download Laporan PDF
+     </a>
+    </div>
+   
+   
+    
+    <div class="col-3">     
+      <a href="/siswa/export" type="button" class="btn btn-primary sm-3 mb-3">
+        <i class="fas fa-download"></i> Download Laporan Excel
+      </a>
+        @endif          
+            
+    
+   </div>
+   
+   <!--Tabel Siswa-->
 <div class="table-responsive">
     <table class="table table-striped table-hover" id="tabelSiswa">
         <thead>
@@ -76,13 +86,12 @@
         @endforeach
         
     </table>
-</div>    
-       
+</div>       
    </div>
+<!--Akhir Tabel Siswa-->
 
 
-
-<!-- Modal -->
+<!-- Modal Tambah Siswa -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog">
    <div class="modal-content">
@@ -192,8 +201,61 @@
    </div>
    </div>
 </div>
-@section('footer')
+<!-- Akhir Modal Tambah Siswa -->
 
+
+
+<!-- Modal Import Excel -->
+<div class="modal fade" id="importExcel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Excel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+       <form action="/siswa/import" method="POST" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Upload File</label>
+          <input type="file" name="importexcel" class="form-control @error('importexcel') is-invalid @enderror" >
+       
+          @error('importexcel')
+         <div class="invalid-feedback">
+           {{$message}}
+         </div>
+        @enderror
+            
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Import</button>
+        </div>
+        </form>
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+<!-- Akhir Modal Import Pdf -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Footer-->
+@section('footer')
 <script>
   $(document).ready( function () {
   $('#tabelSiswa').DataTable();

@@ -11,6 +11,7 @@ use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Support\Str;
 use PDF;
+use App\Imports\SiswaImport;
 
 class SiswaController extends Controller
 {
@@ -90,9 +91,9 @@ class SiswaController extends Controller
         $siswa=Siswa::find($id);
         $siswa->delete($siswa);
         //user
-        $userid=$siswa->user_id;
-        $user=User::find($userid);
-        $user->delete($user);
+       // $userid=$siswa->user_id;
+       // $user=User::find($userid);
+       // $user->delete($user);
         return redirect('/siswa')->with('sukses', 'Data Berhasil Dihapus!');
     }
 
@@ -130,6 +131,13 @@ class SiswaController extends Controller
         $siswa= Siswa::all();
         $pdf = PDF::loadView('export.datasiswapdf',['siswa'=>$siswa]);
         return $pdf->download('datasiswa.pdf');
+    }
+
+    public function importexc(Request $request)
+    {
+        Excel::import(new SiswaImport, $request->file('importexcel'));
+        return redirect('/siswa')->with('sukses', 'Data Berhasil Ditambahkan!');
+        
     }
     
 }

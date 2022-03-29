@@ -1,0 +1,20 @@
+Package pihak ke-3 :
+1. bootstrap
+2. domPdf (barryvdh/laravel-dompdf) https://github.com/barryvdh/laravel-dompdf.git
+3. "//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
+
+
+Database:
+Silahkan Migrate dan import database yang sudah saya sediakan, jangan gunakan db:seed dahulu untuk menghindari error.
+Silahkan Gunakan email rsyd@gmail.com dengan pass '12345' untuk masuk  sebagai Admin
+
+
+Fitur:
+1. Download PDF di data siswa
+2. Download Excel di data siswa
+3. Import Excel di data siswa
+
+User :
+Pada saat menambahkan data siswa baru lewat aplikasi, secara otomatis akan menambahkan user baru dengan role siswa
+
+note: Aplikasi ini belum final dan akan terus dikembangkan
